@@ -11,7 +11,7 @@ namespace PathCleaner
 
         private static HashSet<string> executableExtensions = new HashSet<string>() 
         { 
-            ".exe", ".com", ".bat", ".cmd", ".ps1" 
+            ".exe", ".com", ".bat", ".cmd", ".ps1", ".dll"
         };
 
         public List<string> Folders;
