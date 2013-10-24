@@ -28,7 +28,6 @@ namespace PathCleaner
                 listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, item.Reason));
                 problemList.Items.Add(listItem);
             }
-            problemList.EndUpdate();
             UseWaitCursor = false;
         }
 
