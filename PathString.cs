@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PathCleaner
 {
@@ -35,6 +33,27 @@ namespace PathCleaner
             Environment.SetEnvironmentVariable(pathKey, newPath, EnvironmentVariableTarget.Machine);
         }
 
+        private PathProblem getProblem(string folder, int index, List<string> folders)
+        {
+            if (index > 0 && String.Compare(folder, folders[index - 1], StringComparison.InvariantCultureIgnoreCase) == 0)
+            {
+                return new PathProblem(folder, PathProblemType.Duplicate);
+            }
+            if (!Directory.Exists(folder))
+            {
+                return new PathProblem(folder, PathProblemType.MissingFolder);
+            }
+            if (!Directory.EnumerateFiles(folder).Any())
+            {
+                return new PathProblem(folder, PathProblemType.Empty);
+            }
+            if (!Directory.EnumerateFiles(folder).Where(s => executableExtensions.Contains(Path.GetExtension(s))).Any())
+            {
+                return new PathProblem(folder, PathProblemType.NoExecutables);
+            }
+            return null;
+        }
+
         public IEnumerable<PathProblem> Problems
         {
             get
@@ -43,35 +62,10 @@ namespace PathCleaner
                 for (int n = 0; n < sortedFolders.Count; n++)
                 {
                     var folder = sortedFolders[n];
-                    var problems = PathProblemTypes.None;
-                    if (n > 0 && String.Compare(folder, sortedFolders[n - 1], StringComparison.InvariantCultureIgnoreCase) == 0)
+                    var problem = getProblem(folder, n, sortedFolders);
+                    if (problem != null)
                     {
-                        problems |= PathProblemTypes.Duplicate;
-                        goto Skip;
-                    }
-                    if (!Directory.Exists(folder))
-                    {
-                        problems |= PathProblemTypes.MissingFolder;
-                    }
-                    else
-                    {
-                        if (!Directory.EnumerateFiles(folder).Any())
-                        {
-                            problems |= PathProblemTypes.Empty;
-                        }
-                        else if (!Directory.EnumerateFiles(folder).Where(s => executableExtensions.Contains(Path.GetExtension(s))).Any())
-                        {
-                            problems |= PathProblemTypes.NoExecutables;
-                        }
-                    }
-                Skip:
-                    if(problems != PathProblemTypes.None)
-                    {
-                        yield return new PathProblem()
-                        {
-                            Path = folder,
-                            Problems = problems,
-                        };
+                        yield return problem;
                     }
                 }
             }

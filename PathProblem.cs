@@ -7,34 +7,38 @@ using System.Threading.Tasks;
 namespace PathCleaner
 {
     [Flags]
-    enum PathProblemTypes
+    enum PathProblemType
     {
-        None = 0,
-        MissingFolder = 1,
-        Empty = 2,
-        Duplicate = 4,
-        NoExecutables = 8,
+        MissingFolder,
+        Empty,
+        Duplicate,
+        NoExecutables,
     }
 
     class PathProblem
     {
         public string Path;
-        public PathProblemTypes Problems;
+        public PathProblemType Type;
 
-        private Dictionary<PathProblemTypes, string> flagMap = new Dictionary<PathProblemTypes, string>()
+        public PathProblem(string path, PathProblemType problems)
         {
-            { PathProblemTypes.MissingFolder, "Missing" },
-            { PathProblemTypes.Empty, "Empty" },
-            { PathProblemTypes.NoExecutables, "No executables" }, 
-            { PathProblemTypes.Duplicate, "Duplicate" },
+            this.Path = path;
+            this.Type = problems;
+        }
+
+        private Dictionary<PathProblemType, string> flagMap = new Dictionary<PathProblemType, string>()
+        {
+            { PathProblemType.MissingFolder, "Missing" },
+            { PathProblemType.Empty, "Empty" },
+            { PathProblemType.NoExecutables, "No executables" }, 
+            { PathProblemType.Duplicate, "Duplicate" },
         };
 
         public string Reason
         {
             get
             {
-                var reasons = flagMap.Where(m => Problems.HasFlag(m.Key)).Select(m => m.Value);
-                return String.Join(", ", reasons);
+                return flagMap[Type];
             }
         }
     }
