@@ -33,17 +33,24 @@ namespace PathCleaner
 
         private void cleanupButton_Click(object sender, EventArgs e)
         {
-            var path = new PathString();
-            foreach(ListViewItem item in problemList.SelectedItems)
+            try
             {
-                int index = path.Folders.IndexOf(item.Text);
-                if (index >= 0)
+                var path = new PathString();
+                foreach(ListViewItem item in problemList.SelectedItems)
                 {
-                    path.Folders.RemoveAt(index);
+                    int index = path.Folders.IndexOf(item.Text);
+                    if (index >= 0)
+                    {
+                        path.Folders.RemoveAt(index);
+                    }
                 }
+                path.Update();
+                findProblematicItems();
             }
-            path.Update();
-            findProblematicItems();
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
         }
 
     }
