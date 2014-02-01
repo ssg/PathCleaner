@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace PathCleaner
 {
-    [Flags]
     enum PathProblemType
     {
         MissingFolder,
