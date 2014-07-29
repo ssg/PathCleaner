@@ -12,7 +12,7 @@ namespace PathCleaner
         public bool Identify(string folder, string previousFolder)
         {
             return previousFolder != null 
-                && String.Compare(folder, previousFolder, StringComparison.InvariantCultureIgnoreCase) == 0;
+                && String.Compare(folder, previousFolder, StringComparison.OrdinalIgnoreCase) == 0;
         }
     }
 }
