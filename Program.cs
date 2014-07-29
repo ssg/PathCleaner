@@ -34,7 +34,8 @@ namespace PathCleaner
             {
                 return;
             }
-            var startInfo = new ProcessStartInfo(Process.GetCurrentProcess().Modules[0].FileName)
+            string selfExecutablePath = Process.GetCurrentProcess().Modules[0].FileName;
+            var startInfo = new ProcessStartInfo(selfExecutablePath)
             {
                 Verb = "runas",
             };

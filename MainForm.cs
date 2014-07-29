@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Security.Principal;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace PathCleaner
@@ -12,6 +11,14 @@ namespace PathCleaner
             InitializeComponent();
         }
 
+        private static IEnumerable<IPathChecker> pathCheckers = new IPathChecker[]
+        {
+            new DuplicatePathChecker(),
+            new MissingPathChecker(),
+            new EmptyPathChecker(),
+            new NoExecutablesPathChecker(),
+        };
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             findProblematicItems();
@@ -22,7 +29,8 @@ namespace PathCleaner
             UseWaitCursor = true;
             problemList.Items.Clear();
             var path = new PathString();
-            foreach(var item in path.Problems)
+            var identifier = new ProblemIdentifier(path, pathCheckers);
+            foreach(var item in identifier.Problems)
             {
                 var listItem = new ListViewItem(item.Path);
                 listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, item.Reason));
@@ -42,7 +50,7 @@ namespace PathCleaner
                     path.Folders.RemoveAt(index);
                 }
             }
-            path.Update();
+            path.UpdateEnvironmentVariable();
             findProblematicItems();
         }
 

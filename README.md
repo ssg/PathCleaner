@@ -1,6 +1,10 @@
 Path Cleaner
 ---------------------
-Tonight I noticed that I had a huge `PATH` environment variable on my machine. I saw many useless, orphaned entries. I looked around  for a tool to clean those up but to no avail. So I decided to write one while I was waiting for GTA 5 download to complete. So here it is. It can detect and correct the following problems:
+Tonight I noticed that I had a huge `PATH` environment variable on my machine. 
+I saw many useless, orphaned entries. I looked around  for a tool to clean those 
+up but to no avail. So I decided to write one while I was waiting for GTA 5 
+download to complete. So here it is. It can detect and correct the following 
+problems:
 
  - Empty/missing folders
  - Folders without any executables
@@ -9,7 +13,7 @@ Tonight I noticed that I had a huge `PATH` environment variable on my machine. I
 License
 ------------
 Path Cleaner
-Copyright (C) 2013  Sedat Kapanoglu  <sedat@eksiteknoloji.com>
+Copyright (C) 2013  Sedat Kapanoglu  <ssg@sourtimes.org>
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
