@@ -12,7 +12,8 @@ namespace PathCleaner
 
         public PathString()
         {
-            string rawText = Environment.GetEnvironmentVariable(pathKey, EnvironmentVariableTarget.Machine);
+            string rawText = Environment.GetEnvironmentVariable(pathKey,
+                EnvironmentVariableTarget.Machine);
             this.Folders = rawText.Split(';').ToList();
         }
 
@@ -26,6 +27,5 @@ namespace PathCleaner
             string newPath = this.ToString();
             Environment.SetEnvironmentVariable(pathKey, newPath, EnvironmentVariableTarget.Machine);
         }
-
     }
 }

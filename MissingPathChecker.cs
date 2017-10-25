@@ -14,5 +14,4 @@ namespace PathCleaner
             return !Directory.Exists(folder);
         }
     }
-
 }

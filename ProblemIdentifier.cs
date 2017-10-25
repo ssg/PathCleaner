@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PathCleaner
@@ -22,7 +23,12 @@ namespace PathCleaner
                 string previousFolder = null;
                 foreach(string folder in sortedFolders)
                 {
-                    var problem = Checkers.Where(c => c.Identify(folder, previousFolder))
+                    string expandedFolder = folder;
+                    if (folder.IndexOf('%') >= 0)
+                    {
+                        expandedFolder = Environment.ExpandEnvironmentVariables(folder);
+                    }
+                    var problem = Checkers.Where(c => c.Identify(expandedFolder, previousFolder))
                         .Select(c => new PathProblem
                         {
                             Path = folder,
@@ -37,6 +43,5 @@ namespace PathCleaner
                 }
             }
         }
-
     }
 }
