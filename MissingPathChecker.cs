@@ -4,10 +4,7 @@ namespace PathCleaner
 {
     class MissingPathChecker : IPathChecker
     {
-        public string Reason
-        {
-            get { return "Missing"; }
-        }
+        public string Reason => "Missing";
 
         public bool Identify(string folder, string previousFolder)
         {

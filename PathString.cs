@@ -17,10 +17,7 @@ namespace PathCleaner
             this.Folders = rawText.Split(';').ToList();
         }
 
-        public override string ToString()
-        {
-            return String.Join(";", Folders);
-        }
+        public override string ToString() => String.Join(";", Folders);
 
         public void UpdateEnvironmentVariable()
         {

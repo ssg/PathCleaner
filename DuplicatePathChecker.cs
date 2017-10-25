@@ -4,10 +4,7 @@ namespace PathCleaner
 {
     class DuplicatePathChecker : IPathChecker
     {
-        public string Reason
-        {
-            get { return "Duplicate"; }
-        }
+        public string Reason => "Duplicate";
 
         public bool Identify(string folder, string previousFolder)
         {

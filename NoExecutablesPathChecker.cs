@@ -4,17 +4,14 @@ using System.Linq;
 
 namespace PathCleaner
 {
-    class NoExecutablesPathChecker : IPathChecker
+    internal class NoExecutablesPathChecker : IPathChecker
     {
-        private static HashSet<string> executableExtensions = new HashSet<string>() 
-        { 
+        private static readonly HashSet<string> executableExtensions = new HashSet<string>()
+        {
             ".exe", ".com", ".bat", ".cmd", ".ps1", ".dll"
         };
 
-        public string Reason
-        {
-            get { return "No executables"; }
-        }
+        public string Reason => "No executables";
 
         public bool Identify(string folder, string previousFolder)
         {
@@ -23,5 +20,4 @@ namespace PathCleaner
                 .Any();
         }
     }
-
 }

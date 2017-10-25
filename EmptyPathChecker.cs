@@ -5,10 +5,7 @@ namespace PathCleaner
 {
     class EmptyPathChecker : IPathChecker
     {
-        public string Reason
-        {
-            get { return "Empty"; }
-        }
+        public string Reason => "Empty";
 
         public bool Identify(string folder, string previousFolder)
         {

@@ -6,10 +6,7 @@ namespace PathCleaner
 {
     public partial class MainForm : Form
     {
-        public MainForm()
-        {
-            InitializeComponent();
-        }
+        public MainForm() => InitializeComponent();
 
         private static IEnumerable<IPathChecker> pathCheckers = new IPathChecker[]
         {
@@ -19,10 +16,7 @@ namespace PathCleaner
             new NoExecutablesPathChecker(),
         };
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            findProblematicItems();
-        }
+        private void MainForm_Load(object sender, EventArgs e) => findProblematicItems();
 
         private void findProblematicItems()
         {
@@ -30,7 +24,8 @@ namespace PathCleaner
             problemList.Items.Clear();
             var path = new PathString();
             var identifier = new ProblemIdentifier(path, pathCheckers);
-            foreach(var item in identifier.Problems)
+            var problems = identifier.FindProblems();
+            foreach (var item in problems)
             {
                 var listItem = new ListViewItem(item.Path);
                 listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, item.Reason));
@@ -42,7 +37,7 @@ namespace PathCleaner
         private void cleanupButton_Click(object sender, EventArgs e)
         {
             var path = new PathString();
-            foreach(ListViewItem item in problemList.SelectedItems)
+            foreach (ListViewItem item in problemList.SelectedItems)
             {
                 int index = path.Folders.IndexOf(item.Text);
                 if (index >= 0)
@@ -53,6 +48,5 @@ namespace PathCleaner
             path.UpdateEnvironmentVariable();
             findProblematicItems();
         }
-
     }
 }
