@@ -26,14 +26,15 @@ namespace PathCleaner
                 {
                     expandedFolder = Environment.ExpandEnvironmentVariables(folder);
                 }
-                var successfulChecker = Checkers.FirstOrDefault(c => c.Identify(expandedFolder, previousFolder));
-                if (successfulChecker != null)
-                {
-                    var problem = new PathProblem
+                var problem = Checkers.Where(c => c.Identify(expandedFolder, previousFolder))
+                    .Select(c => new PathProblem
                     {
                         Path = folder,
-                        Reason = successfulChecker.Reason,
-                    };
+                        Reason = c.Reason,
+                    })
+                    .FirstOrDefault();
+                if (problem != null)
+                {
                     yield return problem;
                 }
                 previousFolder = folder;
