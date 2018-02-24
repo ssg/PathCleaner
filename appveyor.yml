@@ -1,5 +1,0 @@
-image: Visual Studio 2017
-build:
-  project: PathCleaner.sln
-  parallel: true
-  verbosity: minimal
