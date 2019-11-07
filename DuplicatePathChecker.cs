@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace PathCleaner
 {
@@ -8,8 +9,18 @@ namespace PathCleaner
 
         public bool Identify(string folder, string previousFolder)
         {
-            return previousFolder != null 
-                && String.Compare(folder, previousFolder, StringComparison.OrdinalIgnoreCase) == 0;
+            if (previousFolder == null)
+            {
+                return false;
+            }
+
+            return string.Compare(trimTrailingPathSeparators(folder), 
+                       trimTrailingPathSeparators(previousFolder), StringComparison.OrdinalIgnoreCase) == 0;
+        }
+
+        private static string trimTrailingPathSeparators(string path)
+        {
+            return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
     }
 }
