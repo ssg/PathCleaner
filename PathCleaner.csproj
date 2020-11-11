@@ -5,10 +5,9 @@
     <TargetFramework>net48</TargetFramework>
     <AssemblyTitle>Path Cleaner</AssemblyTitle>
     <Product>Path Cleaner</Product>
-    <Copyright>Copyright ©  2013 Sedat Kapanoglu</Copyright>
+    <Copyright>Copyright © 2013-2020 Sedat Kapanoglu</Copyright>
     <Deterministic>false</Deterministic>
-    <AssemblyVersion>0.3.*</AssemblyVersion>
-    <FileVersion>0.3</FileVersion>
+    <FileVersion>0.4</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
