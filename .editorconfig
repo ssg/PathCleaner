@@ -1,7 +1,7 @@
 root = true
-is_global = true
 
 [*.cs]
 indent_style = space
 indent_size = 4
 guidelines = 80
+charset = utf-8

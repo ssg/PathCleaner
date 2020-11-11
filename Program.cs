@@ -11,16 +11,19 @@ namespace PathCleaner
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
 #if !DEBUG
             checkElevation();
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+#pragma warning disable CA2000 // Dispose objects before losing scope
             Application.Run(new MainForm());
+#pragma warning restore CA2000 // Dispose objects before losing scope
         }
 
+#if !DEBUG
         private static bool isElevated()
         {
             var identity = WindowsIdentity.GetCurrent();
@@ -39,8 +42,9 @@ namespace PathCleaner
             {
                 Verb = "runas",
             };
-            Process.Start(startInfo);
+            _ = Process.Start(startInfo);
             Environment.Exit(0);
         }
+#endif
     }
 }
