@@ -8,7 +8,7 @@ namespace PathCleaner
     {
         public MainForm() => InitializeComponent();
 
-        private static IEnumerable<IPathChecker> pathCheckers = new IPathChecker[]
+        private static readonly IEnumerable<IPathChecker> pathCheckers = new IPathChecker[]
         {
             new DuplicatePathChecker(),
             new MissingPathChecker(),
@@ -16,7 +16,9 @@ namespace PathCleaner
             new NoExecutablesPathChecker(),
         };
 
+#pragma warning disable IDE1006 // Naming Styles
         private void MainForm_Load(object sender, EventArgs e) => findProblematicItems();
+#pragma warning restore IDE1006 // Naming Styles
 
         private void findProblematicItems()
         {
@@ -28,8 +30,8 @@ namespace PathCleaner
             foreach (var item in problems)
             {
                 var listItem = new ListViewItem(item.Path);
-                listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, item.Reason));
-                problemList.Items.Add(listItem);
+                _ = listItem.SubItems.Add(new ListViewItem.ListViewSubItem(listItem, item.Reason));
+                _ = problemList.Items.Add(listItem);
             }
             UseWaitCursor = false;
         }
